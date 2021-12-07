@@ -1,7 +1,13 @@
-package shved.ua.lviv;
+package shved.ua.lviv.services;
+import shved.ua.lviv.domain.User;
+import shved.ua.lviv.shared.AbsractCRUD;
 
 import java.util.ArrayList;
 import java.util.List;
+import shved.ua.lviv.domain.User;
+import shved.ua.lviv.shared.AbsractCRUD;
+import shved.ua.lviv.domain.User;
+import shved.ua.lviv.shared.AbsractCRUD;
 
 public class UserServices {
 	private List<User> listOfUsers = new ArrayList<>();

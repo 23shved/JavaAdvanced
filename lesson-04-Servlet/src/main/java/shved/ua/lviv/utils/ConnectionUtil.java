@@ -1,4 +1,4 @@
-package shved.ua.lviv;
+package shved.ua.lviv.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 	private static String USER_NAME = "root";
-	private static String USER_PASSWORD = "1111";
-	private static String URL = "jdbc:mysql://localhost:3306/librarynew";
+	private static String USER_PASSWORD = "shved2306";
+	private static String URL = "jdbc:mysql://localhost:3306/my_shop";
 	
 	
 	public static Connection openConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {

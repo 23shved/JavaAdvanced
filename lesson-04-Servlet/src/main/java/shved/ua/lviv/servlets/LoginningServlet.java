@@ -1,11 +1,15 @@
-package shved.ua.lviv;
+package shved.ua.lviv.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import shved.ua.lviv.domain.User;
+import shved.ua.lviv.services.UserServices;
 
 @WebServlet(name = "login", urlPatterns = { "/login" })
 public class LoginningServlet extends HttpServlet {
@@ -23,7 +27,7 @@ public class LoginningServlet extends HttpServlet {
 
 		UserServices userServices = UserServices.getUserServices();
 		if (email.equals("admin") && password.equals("admin")) {
-			request.getRequestDispatcher("jdbc2").forward(request, response);
+			request.getRequestDispatcher("jdbc3").forward(request, response);
 
 		}
 		else {

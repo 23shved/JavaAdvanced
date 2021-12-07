@@ -1,4 +1,4 @@
-package shved.ua.lviv;
+package shved.ua.lviv.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,40 +16,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/jdbc")
-public class jdbc extends HttpServlet {
+import shved.ua.lviv.utils.ConnectionUtil;
+// List of books
+@WebServlet("/jdbc1")
+public class jdbc1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	Connection connection = null;
 	ResultSet resultSet = null;
-	PreparedStatement preparedStatement = null;
 	String query = null;
-	String url = null;
-	String username = null;
-	String password = null;
 	public static Statement st;
 
-	public jdbc() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public void init(ServletConfig config) throws ServletException {
-
-		url = "jdbc:mysql://localhost:3306/librarynew";
-		username = "root";
-		password = "11111";
-		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-			connection = DriverManager.getConnection(url, username, password);
-		} catch (Exception e) {
-
-			e.printStackTrace();
+	private Connection connection;
+	private PreparedStatement preparedStatement;
+	
+	public jdbc1() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		connection = ConnectionUtil.openConnection();
 		}
-
-	}
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -64,7 +46,7 @@ public class jdbc extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		query = "select * from librarynew.data";
+		query = "select * from product";
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
@@ -73,7 +55,8 @@ public class jdbc extends HttpServlet {
 			out.println("<hr></br><table cellspacing='0' cellpadding='5' border='1'>");
 			out.println("<tr>");
 			out.println("<td><b>ID</b></td>");
-			out.println("<td><b>Book</b></td>");
+			out.println("<td><b>Name</b></td>");
+			out.println("<td><b>Description</b></td>");
 			out.println("<td><b>Price</b></td>");
 			out.println("</tr>");
 
@@ -81,7 +64,8 @@ public class jdbc extends HttpServlet {
 				out.println("<tr>");
 				out.println("<td>" + resultSet.getInt(1) + "</td>");
 				out.println("<td>" + resultSet.getString(2) + "</td>");
-				out.println("<td>" + resultSet.getInt(3) + "</td>");
+				out.println("<td>" + resultSet.getString(3) + "</td>");
+				out.println("<td>" + resultSet.getDouble(4) + "</td>");
 				out.println("</tr>");
 
 			}
@@ -93,15 +77,4 @@ public class jdbc extends HttpServlet {
 
 	}
 
-	@Override
-	public void destroy() {
-		try {
-			resultSet.close();
-			preparedStatement.close();
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-
-	}
 }
